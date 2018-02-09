@@ -30,10 +30,14 @@ class App extends Component {
     mode: 0,
     shift: 0,
     data: getInitialData(),
+    inputString: '',
   }
 
   shifting = (char) => {
     const number = ascii(char);
+    if (number < 65 || number > 90) {
+      return char;
+    }
     const nextNumber = number + this.state.shift;
     const rotateNumber = nextNumber <= 90 ? nextNumber : nextNumber - 26;
     return deAscii(rotateNumber);
@@ -52,13 +56,21 @@ class App extends Component {
         <CharContainer>
           {
             this.state.data.map(c => (
-              <Row key={c.before}>
-                <p>{c.before}</p>
-                <p>{this.shifting(c.before)}</p>
+              <Row key={c}>
+                <p>{`${c} => `}</p>
+                <p>{this.shifting(c)}</p>
               </Row>
             ))
           }
         </CharContainer>
+        <textarea
+          value={this.state.inputString}
+          rows="4"
+          cols="50"
+          onChange={e => this.setState({ inputString: e.target.value.toUpperCase() })}
+        />
+        <br />
+        <textarea value={this.state.inputString.split('').map(c => this.shifting(c)).join('')} rows="4" cols="50" />
       </AppContainer>
     );
   }
