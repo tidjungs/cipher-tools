@@ -15,10 +15,40 @@ const CharContainer = styled.div`
 
 const Row = styled.div`
   display: flex;
-  margin-left: 30px;
+`;
+
+const Col = styled.div`
+  width: ${props => props.width};
+  padding: 40px;
+`;
+
+const CharItem = styled.div`
+  display: flex;
+  font-size: 12px;
+  margin-right: 30px;
   p {
     margin-right: 5px;
   }
+`;
+
+const TextArea = styled.textarea`
+  width: 90%;
+  height: 100px;
+  border: 0;
+  font-size: ${props => props.fontSize}px;
+  resize: none;
+  padding: 20px;
+  color: white;
+  margin-bottom: 20px;
+  background: none;
+
+  &:focus {
+    outline: none;
+  }
+`;
+
+const Background = styled.div`
+  background: ${props => props.background};
 `;
 
 const AppContainer = styled.div`
@@ -30,7 +60,8 @@ class App extends Component {
     mode: 0,
     shift: 0,
     data: getInitialData(),
-    inputString: '',
+    inputString: 'HELLO WORLD',
+    fontsize: 20,
   }
 
   shifting = (char) => {
@@ -43,34 +74,57 @@ class App extends Component {
     return deAscii(rotateNumber);
   }
 
+  changeInput = (e) => {
+    this.setState({
+      inputString: e.target.value.toUpperCase(),
+    });
+  }
+
+
   render() {
     return (
       <AppContainer>
-        <Title>Ciphers</Title>
-        <InputRange
-          maxValue={25}
-          minValue={0}
-          value={this.state.shift}
-          onChange={shift => this.setState({ shift })}
-        />
-        <CharContainer>
-          {
-            this.state.data.map(c => (
-              <Row key={c}>
-                <p>{`${c} => `}</p>
-                <p>{this.shifting(c)}</p>
-              </Row>
-            ))
-          }
-        </CharContainer>
-        <textarea
-          value={this.state.inputString}
-          rows="4"
-          cols="50"
-          onChange={e => this.setState({ inputString: e.target.value.toUpperCase() })}
-        />
-        <br />
-        <textarea value={this.state.inputString.split('').map(c => this.shifting(c)).join('')} rows="4" cols="50" />
+        {/* <Title>Ciphers</Title> */}
+        <Row>
+          <Col width="50%">
+            <InputRange
+              maxValue={25}
+              minValue={0}
+              value={this.state.shift}
+              onChange={shift => this.setState({ shift })}
+            />
+          </Col>
+          <Col width="50%">
+            {/* <CharContainer>
+              {
+                this.state.data.map(c => (
+                  <CharItem key={c}>
+                    <p>{`${c} => `}</p>
+                    <p>{this.shifting(c)}</p>
+                  </CharItem>
+                ))
+              }
+            </CharContainer> */}
+          </Col>
+        </Row>
+        <Background
+          background="#2980b9"
+        >
+          <TextArea
+            contenteditable="true"
+            fontSize={this.state.fontsize}
+            value={this.state.inputString}
+            onChange={this.changeInput}
+          />
+        </Background>
+        <Background
+          background="#3498db"
+        >
+          <TextArea
+            fontSize={this.state.fontsize}
+            value={this.state.inputString.split('').map(c => this.shifting(c)).join('')} 
+          />
+        </Background>
       </AppContainer>
     );
   }
