@@ -149,22 +149,16 @@ class App extends Component {
               }}
             />
             <Box
-              width="100%"
+              width="50%"
               padding="0"
-              mt="20"
+              mt="50"
             >
-              <InputTitle>Shifting</InputTitle>
-              <Box
-                width="50%"
-                mt="8"
-              >
-                <InputRange
-                  maxValue={25}
-                  minValue={0}
-                  value={this.state.shift}
-                  onChange={shift => this.setState({ shift })}
-                />
-              </Box>
+              <InputRange
+                maxValue={25}
+                minValue={0}
+                value={this.state.shift}
+                onChange={shift => this.setState({ shift })}
+              />
             </Box>
           </Col>
           <Col width="50%" padding="20">
