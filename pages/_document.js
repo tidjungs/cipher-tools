@@ -1,5 +1,17 @@
+import React from 'react';
 import Document, { Head, Main, NextScript } from 'next/document';
-import { ServerStyleSheet } from 'styled-components';
+import { ServerStyleSheet, injectGlobal } from 'styled-components';
+
+injectGlobal`
+  @font-face {
+    font-family: 'Roboto';
+    src: url('/static/Roboto-Regular.ttf');
+  }
+  
+  body, textarea {
+    font-family: 'Roboto';
+  }
+`;
 
 export default class MyDocument extends Document {
   static getInitialProps ({ renderPage }) {
@@ -9,13 +21,13 @@ export default class MyDocument extends Document {
     return { ...page, styleTags }
   }
 
-  render () {
+  render() {
     return (
       <html>
         <Head>
           <title>My page</title>
           <link rel="stylesheet" href="static/slider.css" />
-          <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+          <script defer src="/static/fontawesome/js/fontawesome-all.js" />
           {this.props.styleTags}
         </Head>
         <body style={{ margin: 0 }}>

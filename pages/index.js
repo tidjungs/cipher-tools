@@ -41,6 +41,7 @@ const TextArea = styled.textarea`
   width: 90%;
   height: 100px;
   border: 0;
+  // font-family: 'Roboto';
   font-size: ${props => props.fontSize}px;
   resize: none;
   padding: 20px;
@@ -143,17 +144,6 @@ class App extends Component {
             value={this.state.inputString.split('').map(c => this.shifting(c)).join('')} 
           />
         </Background>
-        <style jsx global>{`
-            @font-face {
-              font-family: 'Roboto';
-              src: url('/static/Roboto-Regular.ttf');
-            }
-
-            body {
-              font-family: 'Roboto', sans-serif;
-            }
-          `}
-        </style>
       </AppContainer>
     );
   }
