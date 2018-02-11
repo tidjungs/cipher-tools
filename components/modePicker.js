@@ -10,7 +10,7 @@ const Container = styled.div`
 `;
 
 const Selected = styled.p`
-  color: white;
+  color: #F4B350;
   font-size: 32px;
   margin: 0px;
   margin-right: 20px;

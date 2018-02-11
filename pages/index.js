@@ -44,7 +44,7 @@ const CharItem = styled.div`
 `;
 
 const TextArea = styled.textarea`
-  width: 90%;
+  width: 95%;
   height: 100px;
   border: 0;
   // font-family: 'Roboto';
@@ -82,7 +82,7 @@ const Box = styled.div`
 
 const InputTitle = styled.label`
   margin-right: 30px;
-  font-size: 20px;
+  font-size: 16px;
   color: white;
 `;
 
@@ -98,7 +98,8 @@ const Footer = styled.div`
   p {
     color: white;
     margin: 0;
-    margin-top: 5px;
+    margin-top: 8px;
+    font-size: 12px;
   }
   a {
     color: white;
@@ -107,14 +108,13 @@ const Footer = styled.div`
   }
 `;
 
-
 class App extends Component {
   state = {
     mode: 0,
     shift: 0,
     data: getInitialData(),
     inputString: '',
-    fontsize: 20,
+    fontsize: 40,
   }
 
   shifting = (char) => {
@@ -128,6 +128,8 @@ class App extends Component {
   }
 
   changeInput = (e) => {
+    const str = e.target.value.toUpperCase();
+    console.log(str.length);
     this.setState({
       inputString: e.target.value.toUpperCase(),
     });
@@ -140,7 +142,7 @@ class App extends Component {
       <AppContainer>
         <Row>
           <Col width="50%" padding="40">
-            <ModePicker 
+            <ModePicker
               mode={this.state.mode}
               handleUnSelectedClicked={mode => () => { 
                 this.setState({ mode }); 
@@ -208,6 +210,16 @@ class App extends Component {
           <p>By Waewprach Suthirawut</p>
           <a href="https://github.com/tidjungs/cipher-tools"><i className="fab fa-github" />{'  Github'}</a>
         </Footer>
+        <style jsx global>{`
+          .input-range__slider {
+            background: ${firstColor};
+            border: none;
+          }
+          .input-range__track--active {
+            background: ${firstColor};
+          }
+        `}
+        </style>
       </AppContainer>
     );
   }
