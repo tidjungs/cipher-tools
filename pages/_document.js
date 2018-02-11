@@ -15,6 +15,7 @@ export default class MyDocument extends Document {
         <Head>
           <title>My page</title>
           <link rel="stylesheet" href="static/slider.css" />
+          <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
           {this.props.styleTags}
         </Head>
         <body style={{ margin: 0 }}>
@@ -22,6 +23,6 @@ export default class MyDocument extends Document {
           <NextScript />
         </body>
       </html>
-    )
+    );
   }
 }
