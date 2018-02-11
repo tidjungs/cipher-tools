@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import InputRange from 'react-input-range';
+import ModePicker from '../components/modePicker';
 import { getInitialData, ascii, deAscii } from '../utils';
 
 const color1 = ['#3498db', '#1abc9c', '#F4B350', '#e74c3c', '#9b59b6'];
@@ -9,11 +10,6 @@ const color2 = ['#2980b9', '#16a085', '#f39c12', '#c0392b', '#8e44ad'];
 
 const mobileSize = '800px';
 
-const Title = styled.p`
-  color: white;
-  font-size: 32px;
-  margin: 0px;
-`;
 
 const CharContainer = styled.div`
   display: flex;
@@ -144,7 +140,12 @@ class App extends Component {
       <AppContainer>
         <Row>
           <Col width="50%" padding="40">
-            <Title><i className="fas fa-chess-king" />{'  Julius Caesar Cipher'}</Title>
+            <ModePicker 
+              mode={this.state.mode}
+              handleUnSelectedClicked={mode => () => { 
+                this.setState({ mode }); 
+              }}
+            />
             <Box
               width="100%"
               padding="0"
