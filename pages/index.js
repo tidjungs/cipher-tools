@@ -7,16 +7,15 @@ const color1 = ['#3498db', '#1abc9c', '#F4B350', '#e74c3c', '#9b59b6'];
 
 const color2 = ['#2980b9', '#16a085', '#f39c12', '#c0392b', '#8e44ad'];
 
-const Title = styled.h1`
-  color: red;
-  font-size: 50px;
+const Title = styled.p`
+  color: white;
+  font-size: 32px;
 `;
 
 const CharContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   padding: 20px;
-  color: ${props => props.color};
 `;
 
 const Row = styled.div`
@@ -67,6 +66,24 @@ const AppContainer = styled.div`
   min-height: 100vh;
 `;
 
+const Box = styled.div`
+  display: flex;
+  width: ${props => props.width};
+  padding: ${props => props.padding || 0}px;
+  margin-top: ${props => props.mt || 0}px;
+`;
+
+const InputTitle = styled.label`
+  margin-right: 30px;
+  font-size: 20px;
+  color: white;
+`;
+
+const ColorP = styled.p`
+  color: ${props => props.color}
+`;
+
+
 class App extends Component {
   state = {
     mode: 0,
@@ -93,29 +110,44 @@ class App extends Component {
   }
 
   render() {
+    const firstColor = color1[~~(this.state.shift / 5) % color1.length];
+    const secondColor = color2[~~(this.state.shift / 5) % color2.length];
     return (
       <AppContainer>
         {/* <Title>Ciphers</Title> */}
         <Row>
           <Col width="50%" padding="20">
-            <p>Julius Caesar Cipher</p>
-            <p>Shift: {this.state.shift}</p>
-            <InputRange
-              maxValue={25}
-              minValue={0}
-              value={this.state.shift}
-              onChange={shift => this.setState({ shift })}
-            />
+            <Title>Julius Caesar Cipher</Title>
+            <Box
+              width="100%"
+              padding="0"
+              mt="20"
+            >
+              <InputTitle>Shifting</InputTitle>
+              <Box
+                width="50%"
+                mt="8"
+              >
+                <InputRange
+                  maxValue={25}
+                  minValue={0}
+                  value={this.state.shift}
+                  onChange={shift => this.setState({ shift })}
+                />
+              </Box>
+            </Box>
           </Col>
           <Col width="50%" padding="0">
-            <CharContainer
-              color={color1[~~(this.state.shift / 5) % color1.length]}
-            >
+            <CharContainer>
               {
                 this.state.data.map(c => (
                   <CharItem key={c}>
-                    <p>{`${c} `}<i className="fas fa-angle-double-right" /></p>
-                    <p>{` ${this.shifting(c)}`}</p>
+                    <ColorP
+                      color={firstColor}
+                    >{`${c} `}
+                    </ColorP>
+                    <ColorP color="white"><i className="fas fa-angle-double-right" /></ColorP>
+                    <ColorP color={firstColor}>{` ${this.shifting(c)}`}</ColorP>
                   </CharItem>
                 ))
               }
@@ -123,7 +155,7 @@ class App extends Component {
           </Col>
         </Row>
         <Background
-          background={color1[~~(this.state.shift / 5) % color1.length]}
+          background={firstColor}
         >
           <TextArea
             color="white"
@@ -135,7 +167,7 @@ class App extends Component {
           />
         </Background>
         <Background
-          background={color2[~~(this.state.shift / 5) % color2.length]}
+          background={secondColor}
         >
           <TextArea
             color="white"
