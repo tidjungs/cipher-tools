@@ -10,6 +10,7 @@ const color2 = ['#2980b9', '#16a085', '#f39c12', '#c0392b', '#8e44ad'];
 const Title = styled.p`
   color: white;
   font-size: 32px;
+  margin: 0px;
 `;
 
 const CharContainer = styled.div`
@@ -83,6 +84,22 @@ const ColorP = styled.p`
   color: ${props => props.color}
 `;
 
+const Footer = styled.div`
+  display: flex;
+  margin-right: 40px;
+  margin-left: 40px;
+  justify-content: space-between;
+  p {
+    color: white;
+    margin: 0;
+    margin-top: 5px;
+  }
+  a {
+    color: white;
+    margin-top: 5px;
+  }
+`;
+
 
 class App extends Component {
   state = {
@@ -114,9 +131,8 @@ class App extends Component {
     const secondColor = color2[~~(this.state.shift / 5) % color2.length];
     return (
       <AppContainer>
-        {/* <Title>Ciphers</Title> */}
         <Row>
-          <Col width="50%" padding="20">
+          <Col width="50%" padding="40">
             <Title>Julius Caesar Cipher</Title>
             <Box
               width="100%"
@@ -176,6 +192,10 @@ class App extends Component {
             value={this.state.inputString.split('').map(c => this.shifting(c)).join('')} 
           />
         </Background>
+        <Footer>
+          <p>By Waewprach Suthirawut</p>
+          <a href="https://github.com/tidjungs/cipher-tools">Github</a>
+        </Footer>
       </AppContainer>
     );
   }
