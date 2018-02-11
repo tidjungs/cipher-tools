@@ -3,6 +3,10 @@ import styled from 'styled-components';
 import InputRange from 'react-input-range';
 import { getInitialData, ascii, deAscii } from '../utils';
 
+const color1 = ['#3498db', '#1abc9c', '#f1c40f', '#e74c3c', '#9b59b6'];
+
+const color2 = ['#2980b9', '#16a085', '#f39c12', '#c0392b', '#8e44ad'];
+
 const Title = styled.h1`
   color: red;
   font-size: 50px;
@@ -24,7 +28,7 @@ const Col = styled.div`
 
 const CharItem = styled.div`
   display: flex;
-  font-size: 12px;
+  font-size: 10px;
   margin-right: 30px;
   p {
     margin-right: 5px;
@@ -38,7 +42,7 @@ const TextArea = styled.textarea`
   font-size: ${props => props.fontSize}px;
   resize: none;
   padding: 20px;
-  color: white;
+  color: ${props => props.color};
   margin-bottom: 20px;
   background: none;
 
@@ -49,10 +53,12 @@ const TextArea = styled.textarea`
 
 const Background = styled.div`
   background: ${props => props.background};
+  transition: 0.5s;
+  padding: 20px;
 `;
 
 const AppContainer = styled.div`
-  padding: 40px;
+  width: 100%;
 `;
 
 class App extends Component {
@@ -60,7 +66,7 @@ class App extends Component {
     mode: 0,
     shift: 0,
     data: getInitialData(),
-    inputString: 'HELLO WORLD',
+    inputString: '',
     fontsize: 20,
   }
 
@@ -80,7 +86,6 @@ class App extends Component {
     });
   }
 
-
   render() {
     return (
       <AppContainer>
@@ -95,7 +100,7 @@ class App extends Component {
             />
           </Col>
           <Col width="50%">
-            {/* <CharContainer>
+            <CharContainer>
               {
                 this.state.data.map(c => (
                   <CharItem key={c}>
@@ -104,23 +109,26 @@ class App extends Component {
                   </CharItem>
                 ))
               }
-            </CharContainer> */}
+            </CharContainer>
           </Col>
         </Row>
         <Background
-          background="#2980b9"
+          background={color1[~~(this.state.shift / 5) % color1.length]}
         >
           <TextArea
+            color="white"
             contenteditable="true"
+            placeholder="type something here ..."
             fontSize={this.state.fontsize}
             value={this.state.inputString}
             onChange={this.changeInput}
           />
         </Background>
         <Background
-          background="#3498db"
+          background={color2[~~(this.state.shift / 5) % color2.length]}
         >
           <TextArea
+            color="white"
             fontSize={this.state.fontsize}
             value={this.state.inputString.split('').map(c => this.shifting(c)).join('')} 
           />
