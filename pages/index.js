@@ -7,6 +7,8 @@ const color1 = ['#3498db', '#1abc9c', '#F4B350', '#e74c3c', '#9b59b6'];
 
 const color2 = ['#2980b9', '#16a085', '#f39c12', '#c0392b', '#8e44ad'];
 
+const mobileSize = '800px';
+
 const Title = styled.p`
   color: white;
   font-size: 32px;
@@ -16,16 +18,24 @@ const Title = styled.p`
 const CharContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  padding: 20px;
+  @media(max-width: ${mobileSize}) {
+    display: none;
+  }
 `;
 
 const Row = styled.div`
   display: flex;
+  @media(max-width: ${mobileSize}) {
+    flex-direction: column;
+  }
 `;
 
 const Col = styled.div`
   width: ${props => props.width};
   padding: ${props => props.padding}px;
+  @media(max-width: ${mobileSize}) {
+    width: 100%;
+  }
 `;
 
 const CharItem = styled.div`
@@ -154,7 +164,7 @@ class App extends Component {
               </Box>
             </Box>
           </Col>
-          <Col width="50%" padding="0">
+          <Col width="50%" padding="20">
             <CharContainer>
               {
                 this.state.data.map(c => (
