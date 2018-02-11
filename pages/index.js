@@ -97,6 +97,7 @@ const Footer = styled.div`
   a {
     color: white;
     margin-top: 5px;
+    text-decoration: none;
   }
 `;
 
@@ -133,7 +134,7 @@ class App extends Component {
       <AppContainer>
         <Row>
           <Col width="50%" padding="40">
-            <Title>Julius Caesar Cipher</Title>
+            <Title><i className="fas fa-chess-king" />{'  Julius Caesar Cipher'}</Title>
             <Box
               width="100%"
               padding="0"
@@ -194,7 +195,7 @@ class App extends Component {
         </Background>
         <Footer>
           <p>By Waewprach Suthirawut</p>
-          <a href="https://github.com/tidjungs/cipher-tools">Github</a>
+          <a href="https://github.com/tidjungs/cipher-tools"><i className="fab fa-github" />{'  Github'}</a>
         </Footer>
       </AppContainer>
     );
