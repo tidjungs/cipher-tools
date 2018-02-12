@@ -25,9 +25,10 @@ const ColorP = styled.p`
   color: ${props => props.color}
 `;
 
-const CharTable = ({ data, color, shifting }) => (
+const CharTable = ({ mode, data, color, shifting }) => (
   <CharContainer>
     {
+      mode === 0 &&
       data.map(c => (
         <CharItem key={c}>
           <ColorP color={color}>{`${c} `}</ColorP>
@@ -36,10 +37,21 @@ const CharTable = ({ data, color, shifting }) => (
         </CharItem>
       ))
     }
+    {
+      mode === 1 &&
+      data.map((c, index) => (
+        <CharItem key={index}>
+          <ColorP color={color}>{c.before}</ColorP>
+          <ColorP color="white"><i className="fas fa-angle-double-right" /></ColorP>
+          <ColorP color={color}>{c.after}</ColorP>
+        </CharItem>
+      ))
+    }
   </CharContainer>
 );
 
 CharTable.propTypes = {
+  mode: PropTypes.number,
   data: PropTypes.array,
   color: PropTypes.string,
   shifting: PropTypes.func,

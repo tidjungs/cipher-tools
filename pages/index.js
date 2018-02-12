@@ -4,7 +4,7 @@ import InputRange from 'react-input-range';
 // import { headShake } from 'react-animations';
 import ModePicker from '../components/modePicker';
 import CharTable from '../components/charTable';
-import { getInitialData, ascii, deAscii } from '../utils';
+import { getDataWithMode, ascii, deAscii } from '../utils';
 
 
 // const animation = keyframes`${headShake}`;
@@ -95,7 +95,7 @@ class App extends Component {
   state = {
     mode: 0,
     shift: 0,
-    data: getInitialData(),
+    data: getDataWithMode(0),
     inputString: '',
     fontsize: 40,
   }
@@ -113,6 +113,7 @@ class App extends Component {
   changeMode = mode => () => {
     this.setState({
       mode,
+      data: getDataWithMode(mode),
     });
   }
 
@@ -140,16 +141,20 @@ class App extends Component {
               padding="0"
               mt="50"
             >
-              <InputRange
-                maxValue={25}
-                minValue={0}
-                value={this.state.shift}
-                onChange={shift => this.setState({ shift })}
-              />
+              {
+                this.state.mode === 0 &&
+                <InputRange
+                  maxValue={25}
+                  minValue={0}
+                  value={this.state.shift}
+                  onChange={shift => this.setState({ shift })}
+                />
+              }
             </Box>
           </Col>
           <Col width="50%" padding="20">
             <CharTable
+              mode={this.state.mode}
               data={this.state.data}
               color={firstColor}
               shifting={this.shifting}
