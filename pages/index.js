@@ -1,23 +1,19 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import InputRange from 'react-input-range';
+// import { headShake } from 'react-animations';
 import ModePicker from '../components/modePicker';
+import CharTable from '../components/charTable';
 import { getInitialData, ascii, deAscii } from '../utils';
+
+
+// const animation = keyframes`${headShake}`;
 
 const color1 = ['#3498db', '#1abc9c', '#F4B350', '#e74c3c', '#9b59b6'];
 
 const color2 = ['#2980b9', '#16a085', '#f39c12', '#c0392b', '#8e44ad'];
 
 const mobileSize = '800px';
-
-
-const CharContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  @media(max-width: ${mobileSize}) {
-    display: none;
-  }
-`;
 
 const Row = styled.div`
   display: flex;
@@ -33,16 +29,6 @@ const Col = styled.div`
     width: 100%;
   }
 `;
-
-const CharItem = styled.div`
-  display: flex;
-  font-size: 14px;
-  margin-right: 30px;
-  p {
-    margin-right: 5px;
-  }
-`;
-
 const TextArea = styled.textarea`
   width: 95%;
   height: 100px;
@@ -69,7 +55,7 @@ const Background = styled.div`
 `;
 
 const AppContainer = styled.div`
-  background: #2c3e50;
+  background: #282c34;
   min-height: 100vh;
 `;
 
@@ -86,9 +72,6 @@ const InputTitle = styled.label`
   color: white;
 `;
 
-const ColorP = styled.p`
-  color: ${props => props.color}
-`;
 
 const Footer = styled.div`
   display: flex;
@@ -136,8 +119,8 @@ class App extends Component {
   }
 
   render() {
-    const firstColor = color1[~~(this.state.shift / 5) % color1.length];
-    const secondColor = color2[~~(this.state.shift / 5) % color2.length];
+    const firstColor = color1[Math.floor(this.state.shift / 5) % color1.length];
+    const secondColor = color2[Math.floor(this.state.shift / 5) % color2.length];
     return (
       <AppContainer>
         <Row>
@@ -162,20 +145,11 @@ class App extends Component {
             </Box>
           </Col>
           <Col width="50%" padding="20">
-            <CharContainer>
-              {
-                this.state.data.map(c => (
-                  <CharItem key={c}>
-                    <ColorP
-                      color={firstColor}
-                    >{`${c} `}
-                    </ColorP>
-                    <ColorP color="white"><i className="fas fa-angle-double-right" /></ColorP>
-                    <ColorP color={firstColor}>{` ${this.shifting(c)}`}</ColorP>
-                  </CharItem>
-                ))
-              }
-            </CharContainer>
+            <CharTable
+              data={this.state.data}
+              color={firstColor}
+              shifting={this.shifting}
+            />
           </Col>
         </Row>
         <Background
