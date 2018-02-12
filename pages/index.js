@@ -110,9 +110,15 @@ class App extends Component {
     return deAscii(rotateNumber);
   }
 
+  changeMode = mode => () => {
+    this.setState({
+      mode,
+    });
+  }
+
   changeInput = (e) => {
-    const str = e.target.value.toUpperCase();
-    console.log(str.length);
+    // const str = e.target.value.toUpperCase();
+    // console.log(str.length);
     this.setState({
       inputString: e.target.value.toUpperCase(),
     });
@@ -127,9 +133,7 @@ class App extends Component {
           <Col width="50%" padding="40">
             <ModePicker
               mode={this.state.mode}
-              handleUnSelectedClicked={mode => () => { 
-                this.setState({ mode }); 
-              }}
+              handleUnSelectedClicked={this.changeMode}
             />
             <Box
               width="50%"
