@@ -98,6 +98,7 @@ class App extends Component {
     data: getDataWithMode(0),
     inputString: '',
     fontsize: 40,
+    active: -1,
   }
 
   shifting = (char) => {
@@ -154,10 +155,12 @@ class App extends Component {
           </Col>
           <Col width="50%" padding="20">
             <CharTable
+              active={this.state.active}
               mode={this.state.mode}
               data={this.state.data}
               color={firstColor}
               shifting={this.shifting}
+              handleItemClicked={index => () => this.setState({ active: index })}
             />
           </Col>
         </Row>
