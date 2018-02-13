@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import styled, { keyframes } from 'styled-components';
 import InputRange from 'react-input-range';
+import Toggle from 'react-toggle';
 import { Base64 } from 'js-base64';
 // import { headShake } from 'react-animations';
 import ModePicker from '../components/modePicker';
@@ -203,6 +204,16 @@ class App extends Component {
               handleItemClicked={index => () => this.setState({ active: index })}
               handleKeyDown={this.changeActive}
             />
+            {/* {
+              this.state.mode === 2 &&
+              <label>
+                <Toggle
+                  defaultChecked={this.state.baconIsReady}
+                  onChange={this.handleBaconChange}
+                />
+                <p>Wrapper label tag</p>
+              </label>
+            } */}
           </Col>
         </Row>
         <Background

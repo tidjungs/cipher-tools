@@ -1200,6 +1200,10 @@ circular-json@^0.3.1:
   version "0.3.3"
   resolved "https://registry.yarnpkg.com/circular-json/-/circular-json-0.3.3.tgz#815c99ea84f6809529d2f45791bdf82711352d66"
 
+classnames@^2.2.5:
+  version "2.2.5"
+  resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.5.tgz#fb3801d453467649ef3603c7d61a02bd129bde6d"
+
 cli-boxes@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/cli-boxes/-/cli-boxes-1.0.0.tgz#4fa917c3e59c94a004cd61f8ee509da651687143"
@@ -3669,6 +3673,12 @@ react-stand-in@^4.0.0-beta.18:
   resolved "https://registry.yarnpkg.com/react-stand-in/-/react-stand-in-4.0.0-beta.21.tgz#fb694e465cb20fab7f36d3284f82b68bbd7a657e"
   dependencies:
     shallowequal "^1.0.2"
+
+react-toggle@^4.0.2:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/react-toggle/-/react-toggle-4.0.2.tgz#77f487860efb87fafd197672a2db8c885be1440f"
+  dependencies:
+    classnames "^2.2.5"
 
 react@^16.0.0:
   version "16.2.0"
