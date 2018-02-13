@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import styled, { keyframes } from 'styled-components';
 import InputRange from 'react-input-range';
 // import { headShake } from 'react-animations';
@@ -92,6 +93,12 @@ class App extends Component {
     fontsize: 40,
     active: -1,
   }
+  
+  constructor(props) {
+    super(props);
+    this.items = new Array(26);
+    console.log(this.items)
+  }
 
   shifting = (char) => {
     const number = ascii(char);
@@ -120,7 +127,6 @@ class App extends Component {
 
   changeActive = (e) => {
     const { active, data } = this.state;
-    console.log(e.keyCode);
     if (e.keyCode === 37) {
       // left
       this.setState({
@@ -140,6 +146,13 @@ class App extends Component {
       // down
       this.setState({
         active: (active + 7 <= data.length) ? active + 7 : active,
+      });
+    } else if (e.keyCode >= 65 && e.keyCode <= 90) {
+      const nextData = data.map((c, index) => (
+        index === active ? { ...c, after: deAscii(e.keyCode) } : c
+      ));
+      this.setState({
+        data: nextData,
       });
     }
   }
@@ -180,6 +193,9 @@ class App extends Component {
               shifting={this.shifting}
               handleItemClicked={index => () => this.setState({ active: index })}
               handleKeyDown={this.changeActive}
+              refItem={(el, index) => {
+                this.items[index] = el;
+              }}
             />
           </Col>
         </Row>
