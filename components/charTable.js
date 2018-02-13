@@ -2,14 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-const mobileSize = '800px';
 
 const CharContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  @media(max-width: ${mobileSize}) {
-    display: none;
-  }
 `;
 
 const CharItem = styled.div`

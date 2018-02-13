@@ -27,7 +27,6 @@ export default class MyDocument extends Document {
         <Head>
           <title>Cipher Tools</title>
           <link rel="stylesheet" href="static/slider.css" />
-          <link rel="stylesheet" href="static/toggle.css" />
           <script defer src="/static/fontawesome/js/fontawesome-all.js" />
           {this.props.styleTags}
         </Head>

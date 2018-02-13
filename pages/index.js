@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import styled, { keyframes } from 'styled-components';
 import InputRange from 'react-input-range';
-import Toggle from 'react-toggle';
+import ToggleButton from 'react-toggle-button';
 import { Base64 } from 'js-base64';
 // import { headShake } from 'react-animations';
 import ModePicker from '../components/modePicker';
@@ -16,21 +16,14 @@ const color1 = ['#3498db', '#1abc9c', '#F4B350', '#e74c3c', '#9b59b6'];
 
 const color2 = ['#2980b9', '#16a085', '#f39c12', '#c0392b', '#8e44ad'];
 
-const mobileSize = '800px';
 
 const Row = styled.div`
   display: flex;
-  @media(max-width: ${mobileSize}) {
-    flex-direction: column;
-  }
 `;
 
 const Col = styled.div`
   width: ${props => props.width};
   padding: ${props => props.padding}px;
-  @media(max-width: ${mobileSize}) {
-    width: 100%;
-  }
 `;
 const TextArea = styled.textarea`
   width: 95%;
@@ -90,6 +83,11 @@ const Footer = styled.div`
   }
 `;
 
+const InputLabel = styled.label`
+  color: white;
+  margin-right: 10px;
+`;
+
 class App extends Component {
   state = {
     mode: 0,
@@ -98,16 +96,20 @@ class App extends Component {
     inputString: '',
     fontsize: 40,
     active: -1,
+    decode: false,
   }
 
-  shifting = (char) => {
-    const number = ascii(char);
-    if (number < 65 || number > 90) {
-      return char;
+  getOutput = () => {
+    if (this.state.mode === 0) {
+      return this.state.inputString.split('').map(c => this.shifting(c)).join('');
     }
-    const nextNumber = number + this.state.shift;
-    const rotateNumber = nextNumber <= 90 ? nextNumber : nextNumber - 26;
-    return deAscii(rotateNumber);
+    if (this.state.mode === 1) {
+      return this.state.mode === 1 && replaceString(this.state.inputString, this.state.data);
+    }
+    if (this.state.decode) {
+      return Base64.decode(this.state.inputString);
+    }
+    return Base64.encode(this.state.inputString);
   }
 
   changeMode = mode => () => {
@@ -119,8 +121,9 @@ class App extends Component {
   }
 
   changeInput = (e) => {
+    const inputString = this.state.mode === 2 ? e.target.value : e.target.value.toUpperCase();
     this.setState({
-      inputString: e.target.value.toUpperCase(),
+      inputString,
     });
   }
 
@@ -156,14 +159,14 @@ class App extends Component {
     }
   }
 
-  getOutput = () => {
-    if (this.state.mode === 0) {
-      return this.state.inputString.split('').map(c => this.shifting(c)).join('');
+  shifting = (char) => {
+    const number = ascii(char);
+    if (number < 65 || number > 90) {
+      return char;
     }
-    if (this.state.mode === 1) {
-      return this.state.mode === 1 && replaceString(this.state.inputString, this.state.data);
-    }
-    return Base64.encode(this.state.inputString);
+    const nextNumber = number + this.state.shift;
+    const rotateNumber = nextNumber <= 90 ? nextNumber : nextNumber - 26;
+    return deAscii(rotateNumber);
   }
 
   render() {
@@ -192,6 +195,20 @@ class App extends Component {
                   onChange={shift => this.setState({ shift })}
                 />
               }
+              {
+                this.state.mode === 2 &&
+                <Row>
+                  <InputLabel>DECODE</InputLabel>
+                  <ToggleButton
+                    value={this.state.decode}
+                    onToggle={(value) => {
+                      this.setState({
+                        decode: !value,
+                      });
+                    }}
+                  />
+                </Row>
+              }
             </Box>
           </Col>
           <Col width="50%" padding="20">
@@ -204,16 +221,6 @@ class App extends Component {
               handleItemClicked={index => () => this.setState({ active: index })}
               handleKeyDown={this.changeActive}
             />
-            {/* {
-              this.state.mode === 2 &&
-              <label>
-                <Toggle
-                  defaultChecked={this.state.baconIsReady}
-                  onChange={this.handleBaconChange}
-                />
-                <p>Wrapper label tag</p>
-              </label>
-            } */}
           </Col>
         </Row>
         <Background
