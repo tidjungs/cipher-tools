@@ -21,7 +21,7 @@ const CharItem = styled.div`
   }
   cursor: pointer;
   ${props => props.active && `
-    background: red;
+    background: ${props.color};
   `}
   
   &:focus {
@@ -30,7 +30,7 @@ const CharItem = styled.div`
 `;
 
 const ColorP = styled.p`
-  color: ${props => props.color}
+  color: ${props => (props.active ? 'white' : props.color)}
 `;
 
 const CharTable = ({
@@ -56,12 +56,13 @@ const CharTable = ({
           tabIndex="0"
           key={index}
           active={active === index}
+          color={color}
           onClick={handleItemClicked(index)}
-          onKeyDown={handleKeyDown(index)}
+          onKeyDown={handleKeyDown}
         >
-          <ColorP color={color}>{c.before}</ColorP>
+          <ColorP color={color} active={active === index}>{c.before}</ColorP>
           <ColorP color="white"><i className="fas fa-angle-double-right" /></ColorP>
-          <ColorP color={color}>{c.after}</ColorP>
+          <ColorP color={color} active={active === index}>{c.after}</ColorP>
         </CharItem>
       ))
     }

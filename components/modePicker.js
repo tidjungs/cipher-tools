@@ -31,8 +31,8 @@ const UnSelected = styled.a`
 `;
 
 const nameList = [
-  { text: 'Julius Caesar Cipher', icon: 'fa-chess-king' }, 
-  { text: 'Substitution Cipher', icon: 'fa-chess-knight'},
+  { text: 'Julius Caesar', icon: 'fa-chess-king' }, 
+  { text: 'Substitution', icon: 'fa-chess-knight'},
   { text: 'Base64', icon: 'fa-chess-rook' },
 ];
 

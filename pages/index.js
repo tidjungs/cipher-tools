@@ -118,7 +118,7 @@ class App extends Component {
     });
   }
 
-  changeActive = index => (e) => {
+  changeActive = (e) => {
     const { active, data } = this.state;
     console.log(e.keyCode);
     if (e.keyCode === 37) {
@@ -132,10 +132,12 @@ class App extends Component {
         active: active < data.length - 1 ? active + 1 : active,
       });
     } else if (e.keyCode === 38) {
+      // up
       this.setState({
         active: (active - 7 >= 0) ? active - 7 : active,
       });
     } else if (e.keyCode === 40) {
+      // down
       this.setState({
         active: (active + 7 <= data.length) ? active + 7 : active,
       });
