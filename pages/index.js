@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import styled, { keyframes } from 'styled-components';
 import InputRange from 'react-input-range';
+import { Base64 } from 'js-base64';
 // import { headShake } from 'react-animations';
 import ModePicker from '../components/modePicker';
 import CharTable from '../components/charTable';
@@ -154,6 +155,16 @@ class App extends Component {
     }
   }
 
+  getOutput = () => {
+    if (this.state.mode === 0) {
+      return this.state.inputString.split('').map(c => this.shifting(c)).join('');
+    }
+    if (this.state.mode === 1) {
+      return this.state.mode === 1 && replaceString(this.state.inputString, this.state.data);
+    }
+    return Base64.encode(this.state.inputString);
+  }
+
   render() {
     const firstColor = color1[Math.floor(this.state.shift / 5) % color1.length];
     const secondColor = color2[Math.floor(this.state.shift / 5) % color2.length];
@@ -213,10 +224,7 @@ class App extends Component {
             color="white"
             placeholder="Output ..."
             fontSize={this.state.fontsize}
-            value={
-              this.state.mode === 0 ? this.state.inputString.split('').map(c => this.shifting(c)).join('')
-              : replaceString(this.state.inputString, this.state.data)
-            }
+            value={this.getOutput()}
           />
         </Background>
         <Footer>
