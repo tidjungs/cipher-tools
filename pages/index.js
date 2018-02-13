@@ -117,6 +117,7 @@ class App extends Component {
       mode,
       data: getDataWithMode(mode),
       active: -1,
+      inputString: '',
     });
   }
 
@@ -161,12 +162,12 @@ class App extends Component {
 
   shifting = (char) => {
     const number = ascii(char);
-    if (number < 65 || number > 90) {
-      return char;
+    if (number >= 65 && number <= 90) {
+      const nextNumber = number + this.state.shift;
+      const rotateNumber = nextNumber <= 90 ? nextNumber : nextNumber - 26;
+      return deAscii(rotateNumber);
     }
-    const nextNumber = number + this.state.shift;
-    const rotateNumber = nextNumber <= 90 ? nextNumber : nextNumber - 26;
-    return deAscii(rotateNumber);
+    return char;
   }
 
   render() {
