@@ -11,7 +11,7 @@ const Container = styled.div`
 
 const Selected = styled.p`
   color: #F4B350;
-  font-size: 32px;
+  font-size: 16px;
   margin: 0px;
   margin-right: 20px;
   animation: 0.5s ${pulseAnimation};
@@ -23,8 +23,8 @@ const UnSelected = styled.a`
   font-size: 14px;
   cursor: pointer;
   margin: 0px;
-  margin-top: 20px;
   margin-right: 20px;
+  margin-top: 2px;
   &:hover {
     opacity: 1;
   }

@@ -20,7 +20,13 @@ const CharItem = styled.div`
     margin-right: 5px;
   }
   cursor: pointer;
-  background: ${props => (props.active ? 'red' : 'none')}
+  ${props => props.active && `
+    background: red;
+  `}
+  
+  &:focus {
+    outline: 0;
+  }
 `;
 
 const ColorP = styled.p`
@@ -30,6 +36,7 @@ const ColorP = styled.p`
 const CharTable = ({
   active, mode, data, color,
   shifting, handleItemClicked,
+  handleKeyDown,
 }) => (
   <CharContainer>
     {
@@ -45,7 +52,13 @@ const CharTable = ({
     {
       mode === 1 &&
       data.map((c, index) => (
-        <CharItem key={index} onClick={handleItemClicked(index)} active={active === index}>
+        <CharItem
+          tabIndex="0"
+          key={index}
+          active={active === index}
+          onClick={handleItemClicked(index)}
+          onKeyDown={handleKeyDown(index)}
+        >
           <ColorP color={color}>{c.before}</ColorP>
           <ColorP color="white"><i className="fas fa-angle-double-right" /></ColorP>
           <ColorP color={color}>{c.after}</ColorP>
@@ -62,6 +75,7 @@ CharTable.propTypes = {
   color: PropTypes.string,
   shifting: PropTypes.func,
   handleItemClicked: PropTypes.func,
+  handleKeyDown: PropTypes.func,
 };
 
 export default CharTable;

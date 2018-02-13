@@ -33,7 +33,6 @@ const TextArea = styled.textarea`
   width: 95%;
   height: 100px;
   border: 0;
-  // font-family: 'Roboto';
   font-size: ${props => props.fontSize}px;
   resize: none;
   padding: 20px;
@@ -65,13 +64,6 @@ const Box = styled.div`
   padding: ${props => props.padding || 0}px;
   margin-top: ${props => props.mt || 0}px;
 `;
-
-const InputTitle = styled.label`
-  margin-right: 30px;
-  font-size: 16px;
-  color: white;
-`;
-
 
 const Footer = styled.div`
   display: flex;
@@ -126,6 +118,30 @@ class App extends Component {
     });
   }
 
+  changeActive = index => (e) => {
+    const { active, data } = this.state;
+    console.log(e.keyCode);
+    if (e.keyCode === 37) {
+      // left
+      this.setState({
+        active: active > 0 ? active - 1 : active,
+      });
+    } else if (e.keyCode === 39) {
+      // right
+      this.setState({
+        active: active < data.length - 1 ? active + 1 : active,
+      });
+    } else if (e.keyCode === 38) {
+      this.setState({
+        active: (active - 7 >= 0) ? active - 7 : active,
+      });
+    } else if (e.keyCode === 40) {
+      this.setState({
+        active: (active + 7 <= data.length) ? active + 7 : active,
+      });
+    }
+  }
+
   render() {
     const firstColor = color1[Math.floor(this.state.shift / 5) % color1.length];
     const secondColor = color2[Math.floor(this.state.shift / 5) % color2.length];
@@ -161,6 +177,7 @@ class App extends Component {
               color={firstColor}
               shifting={this.shifting}
               handleItemClicked={index => () => this.setState({ active: index })}
+              handleKeyDown={this.changeActive}
             />
           </Col>
         </Row>
