@@ -30,7 +30,15 @@ const CharItem = styled.div`
 `;
 
 const ColorP = styled.p`
-  color: ${props => (props.active ? 'white' : props.color)}
+  color: ${(props) => {
+    if (props.isChange) {
+      return '#F4B350';
+    }
+    if (props.active) {
+      return 'white';
+    }
+    return props.color;
+  }}
 `;
 
 const CharTable = ({
@@ -63,7 +71,13 @@ const CharTable = ({
         >
           <ColorP color={color} active={active === index}>{c.before}</ColorP>
           <ColorP color="white"><i className="fas fa-angle-double-right" /></ColorP>
-          <ColorP color={color} active={active === index}>{c.after}</ColorP>
+          <ColorP
+            isChange={c.before !== c.after}
+            color={color}
+            active={active === index}
+          >
+            {c.after}
+          </ColorP>
         </CharItem>
       ))
     }

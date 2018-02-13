@@ -112,6 +112,7 @@ class App extends Component {
     this.setState({
       mode,
       data: getDataWithMode(mode),
+      active: -1,
     });
   }
 
