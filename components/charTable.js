@@ -14,10 +14,16 @@ const CharContainer = styled.div`
 
 const CharItem = styled.div`
   display: flex;
+  justify-content: center;
+  height: 20px;
+  width: 60px;
   font-size: 14px;
   margin-right: 30px;
+  margin-bottom: 15px;
   p {
-    margin-right: 5px;
+    margin-top: 0px;
+    margin-right: 2px;
+    margin-left: 2px;
   }
   cursor: pointer;
   ${props => props.active && `
@@ -31,18 +37,18 @@ const CharItem = styled.div`
 
 const ColorP = styled.p`
   color: ${(props) => {
-    if (props.isChange) {
-      return '#F4B350';
-    }
     if (props.active) {
       return 'white';
+    }
+    if (props.isChange) {
+      return '#F4B350';
     }
     return props.color;
   }}
 `;
 
 const CharTable = ({
-  active, mode, data, color,
+  active, mode, data, color, nextColor,
   shifting, handleItemClicked,
   handleKeyDown,
 }) => (

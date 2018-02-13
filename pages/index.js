@@ -137,12 +137,12 @@ class App extends Component {
     } else if (e.keyCode === 38) {
       // up
       this.setState({
-        active: (active - 7 >= 0) ? active - 7 : active,
+        active: (active - 6 >= 0) ? active - 6 : active,
       });
     } else if (e.keyCode === 40) {
       // down
       this.setState({
-        active: (active + 7 <= data.length) ? active + 7 : active,
+        active: (active + 6 <= data.length) ? active + 6 : active,
       });
     } else if (e.keyCode >= 65 && e.keyCode <= 90) {
       const nextData = data.map((c, index) => (
@@ -157,6 +157,7 @@ class App extends Component {
   render() {
     const firstColor = color1[Math.floor(this.state.shift / 5) % color1.length];
     const secondColor = color2[Math.floor(this.state.shift / 5) % color2.length];
+    //const nextColor = color1[(Math.floor(this.state.shift / 5) + 1) % color1.length];
     return (
       <AppContainer>
         <Row>
