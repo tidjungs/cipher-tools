@@ -15,3 +15,12 @@ export const getDataWithMode = (mode) => {
   return getInitialDataWithState();
 };
 
+export const replaceString = (string, data) => (
+  string.split('').map((c) => {
+    const cn = ascii(c) - 65;
+    if (cn >= 0 && cn <= 26) {
+      return data[cn].after;
+    }
+    return c;
+  }).join('')
+);

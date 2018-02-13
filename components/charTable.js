@@ -37,7 +37,6 @@ const CharTable = ({
   active, mode, data, color,
   shifting, handleItemClicked,
   handleKeyDown,
-  refItem,
 }) => (
   <CharContainer>
     {
@@ -54,7 +53,6 @@ const CharTable = ({
       mode === 1 &&
       data.map((c, index) => (
         <CharItem
-          ref={el => refItem(el, index)}
           tabIndex="0"
           key={index}
           autoFocus

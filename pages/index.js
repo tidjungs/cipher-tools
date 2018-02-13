@@ -5,7 +5,7 @@ import InputRange from 'react-input-range';
 // import { headShake } from 'react-animations';
 import ModePicker from '../components/modePicker';
 import CharTable from '../components/charTable';
-import { getDataWithMode, ascii, deAscii } from '../utils';
+import { getDataWithMode, ascii, deAscii, replaceString } from '../utils';
 
 
 // const animation = keyframes`${headShake}`;
@@ -55,6 +55,7 @@ const Background = styled.div`
 `;
 
 const AppContainer = styled.div`
+  position: relative;
   background: #282c34;
   min-height: 100vh;
 `;
@@ -68,19 +69,22 @@ const Box = styled.div`
 
 const Footer = styled.div`
   display: flex;
-  margin-right: 40px;
-  margin-left: 40px;
   justify-content: space-between;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
   p {
     color: white;
     margin: 0;
-    margin-top: 8px;
     font-size: 12px;
+    margin-left: 30px;
+    margin-bottom: 5px;
   }
   a {
     color: white;
-    margin-top: 5px;
     text-decoration: none;
+    margin-right: 30px;
+    margin-bottom: 5px;
   }
 `;
 
@@ -92,12 +96,6 @@ class App extends Component {
     inputString: '',
     fontsize: 40,
     active: -1,
-  }
-  
-  constructor(props) {
-    super(props);
-    this.items = new Array(26);
-    console.log(this.items)
   }
 
   shifting = (char) => {
@@ -118,8 +116,6 @@ class App extends Component {
   }
 
   changeInput = (e) => {
-    // const str = e.target.value.toUpperCase();
-    // console.log(str.length);
     this.setState({
       inputString: e.target.value.toUpperCase(),
     });
@@ -193,9 +189,6 @@ class App extends Component {
               shifting={this.shifting}
               handleItemClicked={index => () => this.setState({ active: index })}
               handleKeyDown={this.changeActive}
-              refItem={(el, index) => {
-                this.items[index] = el;
-              }}
             />
           </Col>
         </Row>
@@ -218,7 +211,10 @@ class App extends Component {
             color="white"
             placeholder="Output ..."
             fontSize={this.state.fontsize}
-            value={this.state.inputString.split('').map(c => this.shifting(c)).join('')} 
+            value={
+              this.state.mode === 0 ? this.state.inputString.split('').map(c => this.shifting(c)).join('')
+              : replaceString(this.state.inputString, this.state.data)
+            }
           />
         </Background>
         <Footer>
