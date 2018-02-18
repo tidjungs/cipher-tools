@@ -1,6 +1,6 @@
 # Cipher Tools
 Homework for System Security Class in CPE Kasetsart University  
-Demo: https://cipher-tools-aqnmcctxsr.now.sh
+Demo: https://cipher-tools-uxqeosjxkj.now.sh/
 
 ## Features
 1. Julius Caesar
